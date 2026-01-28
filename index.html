@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leeriya Coffee - Home</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f5f0;
+            /* background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('image/bg.jpg'); */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: white;
+        }
+        
+        /* Navbar */
+        .navbar-custom {
+            background-color: rgba(27, 20, 14, 0.95) !important;
+            padding: 15px 0;
+            border-bottom: 2px solid #8B4513;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .navbar-brand-custom {
+            color: #fff !important;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+        
+        .navbar-brand-custom span {
+            color: #D4A574;
+            font-style: italic;
+        }
+        
+        .nav-link-custom {
+            color: #fff !important;
+            margin: 0 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link-custom:hover {
+            color: #D4A574 !important;
+            transform: translateY(-2px);
+        }
+        
+        .nav-link-custom::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #D4A574;
+            left: 0;
+            bottom: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link-custom:hover::after {
+            width: 100%;
+        }
+        
+        .navbar-toggler-custom {
+            border: 1px solid #D4A574;
+            padding: 5px 10px;
+        }
+        
+        .navbar-toggler-custom i {
+            color: #D4A574;
+            font-size: 1.5rem;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 20px;
+        }
+        
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            font-family: 'Dancing Script', cursive;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .hero-title span {
+            color: #D4A574;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .btn-hero {
+            background-color: #8B4513;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-hero:hover {
+            background-color: #D4A574;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 165, 116, 0.4);
+            color: white;
+        }
+        
+        /* About Preview */
+        .section-padding {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #D4A574;
+            font-family: 'Dancing Script', cursive;
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: #ffff;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .about-card {
+            background: #D4A574;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px #d4a6747f;
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+        
+        .about-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .about-icon {
+            width: 80px;
+            height: 80px;
+            background: #ffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+        }
+        
+        .about-icon i {
+            color: #8B4513;
+            font-size: 2rem;
+        }
+        
+        .about-card h3 {
+            color: #3c2f2f;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        /* Featured Products */
+        .product-card {
+            background: #D4A574;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            height: 100%;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px #d4a674ae;
+        }
+        
+        .product-img {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .product-img img {
+            transform: scale(1.1);
+        }
+        
+        .product-info {
+            padding: 25px;
+        }
+        
+        .product-title {
+            font-weight: 600;
+            color: #3c2f2f;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .product-price {
+            color: #8B4513;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .product-rating {
+            color: #FFD700;
+            margin-bottom: 15px;
+        }
+        
+        .btn-product {
+            background-color: #3c2f2f;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .btn-product:hover {
+            background-color: #8B4513;
+        }
+        
+        /* Testimonials */
+        .testimonial-card {
+            background: #D4A574;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 15px;
+            height: 100%;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            color: #ffff;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+        
+        .author-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h5 {
+            margin: 0;
+            color: #3c2f2f;
+            font-weight: 600;
+        }
+        
+        .author-info p {
+            margin: 0;
+            color: #ffffff;
+            font-size: 0.9rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #3c2f2f;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-logo {
+            font-size: 2.2rem;
+            font-weight: 700;
+            font-family: 'Dancing Script', cursive;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo span {
+            color: #D4A574;
+        }
+        
+        .footer p {
+            color: #bbb;
+            line-height: 1.8;
+        }
+        
+        .footer-title {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #D4A574;
+            padding-left: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: #D4A574;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 40px;
+            text-align: center;
+            color: #bbb;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .section-padding {
+                padding: 60px 0;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand navbar-brand-custom" href="index.html">
+                <i class="fas fa-coffee me-2"></i>LeeRiya <span>Coffee</span>
+            </a>
+            
+            <button class="navbar-toggler navbar-toggler-custom" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom active" href="index.html"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="about.html"><i class="fas fa-info-circle me-1"></i> Tentang Kami</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="menu.html"><i class="fas fa-coffee me-1"></i> Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="contact.html"><i class="fas fa-address-book me-1"></i> Kontak</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="reservasi.html"><i class="fas fa-calendar-check me-1"></i> Reservasi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="login.html"><i class="fas fa-user me-1"></i> Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up">
+                <h1 class="hero-title">Selamat Datang di <span>Leeriya Coffee</span></h1>
+                <p class="hero-subtitle">Nikmati pengalaman kopi terbaik dengan racikan spesial dari biji kopi pilihan. 
+                Tempat yang nyaman untuk berkumpul, bekerja, atau sekadar menikmati waktu santai.</p>
+                <a href="menu.html" class="btn-hero">Lihat Menu Kami <i class="fas fa-arrow-right ms-2"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Preview -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Kenapa Memilih Leeriya Coffee?</h2>
+                <p>Kami menyajikan lebih dari sekadar kopi, kami menghadirkan pengalaman yang tak terlupakan</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="about-card">
+                        <div class="about-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h3>Biji Kopi Pilihan</h3>
+                        <p>Kami menggunakan biji kopi berkualitas tinggi dari perkebunan terbaik di Indonesia dan dunia.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="about-card">
+                        <div class="about-icon">
+                            <i class="fas fa-mortar-pestle"></i>
+                        </div>
+                        <h3>Racikan Spesial</h3>
+                        <p>Setiap sajian kopi diracik oleh barista profesional dengan teknik terbaik.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="about-card">
+                        <div class="about-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>Ramah Lingkungan</h3>
+                        <p>Kami berkomitmen menggunakan kemasan ramah lingkungan dan mendukung sustainable farming.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="section-padding bg-light">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Menu Andalan Kami</h2>
+                <p>Rasakan keistimewaan dalam setiap tegukan</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Espresso">
+                        </div>
+                        <div class="product-info">
+                            <h4 class="product-title">Espresso Premium</h4>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <p class="product-price">Rp 28.000</p>
+                            <p>Espresso kuat dengan crema yang sempurna dari biji kopi Arabika premium.</p>
+                            <button class="btn-product">Pesan Sekarang</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="https://images.unsplash.com/photo-1550948309-0d8983dbdcc3?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Latte Art">
+                        </div>
+                        <div class="product-info">
+                            <h4 class="product-title">Latte Art Special</h4>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="product-price">Rp 35.000</p>
+                            <p>Kombinasi sempurna espresso dengan susu steamed dan seni latte yang indah.</p>
+                            <button class="btn-product">Pesan Sekarang</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="https://images.unsplash.com/photo-1561641377-f7456d23aa9b?q=80&w=1026&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Cold Brew">
+                        </div>
+                        <div class="product-info">
+                            <h4 class="product-title">Cold Brew Signature</h4>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="product-price">Rp 32.000</p>
+                            <p>Cold brew dengan proses steeping 24 jam menghasilkan rasa yang smooth dan kaya.</p>
+                            <button class="btn-product">Pesan Sekarang</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5" data-aos="fade-up">
+                <a href="menu.html" class="btn-hero">Lihat Semua Menu <i class="fas fa-arrow-right ms-2"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Apa Kata Pelanggan Kami</h2>
+                <p>Testimoni dari mereka yang telah merasakan keistimewaan Leeriya Coffee</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            "Kopi terbaik yang pernah saya coba! Rasanya sangat kaya dan aromanya luar biasa. Tempatnya juga nyaman untuk kerja remote."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-img">
+                                <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Customer">
+                            </div>
+                            <div class="author-info">
+                                <h5>Sarah Putri</h5>
+                                <p>Freelance Designer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            "Latte art-nya selalu berbeda setiap kali datang! Barista sangat profesional dan ramah. Sudah jadi tempat favorit nongkrong saya."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-img">
+                                <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Customer">
+                            </div>
+                            <div class="author-info">
+                                <h5>Budi Santoso</h5>
+                                <p>Mahasiswa</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            "Cold brew signature-nya luar biasa! Tidak terlalu pahit dan sangat refreshing. Perfect untuk cuaca panas seperti ini."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-img">
+                                <img src="https://randomuser.me/api/portraits/women/67.jpg" alt="Customer">
+                            </div>
+                            <div class="author-info">
+                                <h5>Maya Indah</h5>
+                                <p>Content Creator</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
+                    <h3 class="footer-logo"><i class="fas fa-coffee me-2"></i>LeeRiya <span>Coffee</span></h3>
+                    <p>Tempat di mana setiap cangkir kopi bercerita tentang passion dan dedikasi. Kami berkomitmen untuk memberikan pengalaman kopi terbaik untuk Anda.</p>
+                    <div class="social-icons mt-4">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">Tentang Kami</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="contact.html">Kontak</a></li>
+                        <li><a href="reservasi.html">Reservasi</a></li>
+                        <li><a href="login.html">Login</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <h4 class="footer-title">Jam Operasional</h4>
+                    <ul class="footer-links">
+                        <li><strong>Jl. A.Yani:</strong><br>Senin - Minggu: 07:00 - 22:00</li>
+                        <li><strong>Jl. Kurma :</strong><br>Senin - Jumat: 08:00 - 23:00<br>Sabtu - Minggu: 07:00 - 00:00</li>
+                        <li>Hari Libur: 09:00 - 21:00</li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <h4 class="footer-title">Kontak Kami</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt me-2"></i><strong>Sumenep:</strong> Jl. A.Yani No. 269</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i><strong>Sumenep:</strong> Jl. Kurma II No. 469a</li>
+                        <li><i class="fas fa-phone me-2"></i>0857-3515-3101</li>
+                        <li><i class="fas fa-envelope me-2"></i>leeriyacoffee@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2024 Leeriya Coffee. All rights reserved. | Created by <a href="#" style="color: #D4A574;">Isnain Permana Imananda</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar-custom');
+            if (window.scrollY > 50) {
+                navbar.style.padding = '10px 0';
+                navbar.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+            } else {
+                navbar.style.padding = '15px 0';
+                navbar.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+            }
+        });
+        
+        // Active nav link
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = document.querySelectorAll('.nav-link-custom');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

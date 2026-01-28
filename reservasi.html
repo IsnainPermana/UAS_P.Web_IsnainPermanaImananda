@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservasi - Leeriya Coffee</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f5f0;
+            color: #3c2f2f;
+        }
+        
+        /* Navbar */
+        .navbar-custom {
+            background-color: rgba(27, 20, 14, 0.95) !important;
+            padding: 15px 0;
+            border-bottom: 2px solid #8B4513;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .navbar-brand-custom {
+            color: #fff !important;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+        
+        .navbar-brand-custom span {
+            color: #D4A574;
+            font-style: italic;
+        }
+        
+        .nav-link-custom {
+            color: #fff !important;
+            margin: 0 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link-custom:hover {
+            color: #D4A574 !important;
+            transform: translateY(-2px);
+        }
+        
+        .nav-link-custom::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #D4A574;
+            left: 0;
+            bottom: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link-custom:hover::after {
+            width: 100%;
+        }
+        
+        .navbar-toggler-custom {
+            border: 1px solid #D4A574;
+            padding: 5px 10px;
+        }
+        
+        .navbar-toggler-custom i {
+            color: #D4A574;
+            font-size: 1.5rem;
+        }
+        
+        /* Reservation Hero */
+        .reservation-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            color: white;
+            margin-top: 80px;
+            text-align: center;
+        }
+        
+        .reservation-hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            font-family: 'Dancing Script', cursive;
+            margin-bottom: 20px;
+        }
+        
+        .reservation-hero h1 span {
+            color: #D4A574;
+        }
+        
+        /* Reservation Container */
+        .reservation-container {
+            padding: 80px 0;
+        }
+        
+        .reservation-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-label {
+            color: #3c2f2f;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .form-control, .form-select {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: #8B4513;
+            box-shadow: 0 0 0 0.2rem rgba(139, 69, 19, 0.25);
+        }
+        
+        /* Date and Time Picker */
+        .datetime-picker {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .datetime-picker .form-control {
+            flex: 1;
+        }
+        
+        /* Table Selection */
+        .table-options {
+            margin-bottom: 30px;
+        }
+        
+        .table-type {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .table-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 15px;
+            background: #f8f5f0;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .table-btn:hover {
+            border-color: #8B4513;
+            background: #fff8f0;
+        }
+        
+        .table-btn.selected {
+            border-color: #8B4513;
+            background: #8B4513;
+            color: white;
+        }
+        
+        .table-btn i {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        /* Special Requests */
+        .special-requests textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        /* Submit Button */
+        .btn-submit {
+            background: #8B4513;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .btn-submit:hover {
+            background: #3c2f2f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Benefits Section */
+        .benefits-section {
+            padding: 60px 0;
+            background: #f8f5f0;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .benefit-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .benefit-icon {
+            width: 70px;
+            height: 70px;
+            background: #8B4513;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 1.8rem;
+        }
+        
+        .benefit-card h4 {
+            color: #3c2f2f;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .benefit-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #3c2f2f;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-logo {
+            font-size: 2.2rem;
+            font-weight: 700;
+            font-family: 'Dancing Script', cursive;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo span {
+            color: #D4A574;
+        }
+        
+        .footer p {
+            color: #bbb;
+            line-height: 1.8;
+        }
+        
+        .footer-title {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #D4A574;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: #D4A574;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 40px;
+            text-align: center;
+            color: #bbb;
+        }
+        
+        /* Modal Styles */
+        .reservation-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .modal-content h3 {
+            color: #3c2f2f;
+            margin-bottom: 20px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+        }
+        
+        .modal-content p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .btn-modal {
+            background: #8B4513;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-modal:hover {
+            background: #3c2f2f;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .reservation-hero {
+                padding: 70px 0;
+            }
+            
+            .reservation-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .reservation-container {
+                padding: 60px 0;
+            }
+            
+            .reservation-card {
+                padding: 30px;
+            }
+            
+            .datetime-picker {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .table-btn {
+                min-width: 100px;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .reservation-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .table-type {
+                flex-direction: column;
+            }
+            
+            .table-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand navbar-brand-custom" href="index.html">
+                <i class="fas fa-coffee me-2"></i>LeeRiya <span>Coffee</span>
+            </a>
+            
+            <button class="navbar-toggler navbar-toggler-custom" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="index.html"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="about.html"><i class="fas fa-info-circle me-1"></i> Tentang Kami</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="menu.html"><i class="fas fa-coffee me-1"></i> Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom active" href="contact.html"><i class="fas fa-address-book me-1"></i> Kontak</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="reservasi.html"><i class="fas fa-calendar-check me-1"></i> Reservasi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="login.html"><i class="fas fa-user me-1"></i> Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Reservation Hero -->
+    <section class="reservation-hero">
+        <div class="container">
+            <h1>Reservasi <span>Leeriya Coffee</span></h1>
+            <p class="lead">Pesan meja Anda sekarang dan nikmati pengalaman kopi terbaik tanpa antrian</p>
+        </div>
+    </section>
+
+    <!-- Reservation Form -->
+    <section class="reservation-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="reservation-card">
+                        <h2 class="text-center mb-4" style="color: #3c2f2f;">Form Reservasi</h2>
+                        <p class="text-center mb-4" style="color: #666;">Isi formulir di bawah ini untuk memesan meja di Leeriya Coffee</p>
+                        
+                        <form id="reservationForm">
+                            <!-- Personal Information -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label">Nama Lengkap <span style="color: #8B4513;">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Masukkan nama Anda" required id="fullName">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Nomor Telepon <span style="color: #8B4513;">*</span></label>
+                                    <input type="tel" class="form-control" placeholder="Contoh: 081234567890" required id="phoneNumber">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label">Email <span style="color: #8B4513;">*</span></label>
+                                    <input type="email" class="form-control" placeholder="Masukkan email Anda" required id="email">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Jumlah Orang <span style="color: #8B4513;">*</span></label>
+                                    <select class="form-select" required id="peopleCount">
+                                        <option value="">Pilih jumlah orang</option>
+                                        <option value="1">1 Orang</option>
+                                        <option value="2">2 Orang</option>
+                                        <option value="3">3 Orang</option>
+                                        <option value="4">4 Orang</option>
+                                        <option value="5">5-6 Orang</option>
+                                        <option value="7">7+ Orang (Group)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- Date and Time -->
+                            <label class="form-label">Tanggal & Waktu Reservasi <span style="color: #8B4513;">*</span></label>
+                            <div class="datetime-picker">
+                                <input type="date" class="form-control" required id="reservationDate">
+                                <input type="time" class="form-control" required id="reservationTime">
+                            </div>
+                            
+                            <!-- Location Selection -->
+                            <label class="form-label">Lokasi <span style="color: #8B4513;">*</span></label>
+                            <select class="form-select" required id="location">
+                                <option value="">Pilih lokasi kafe</option>
+                                <option value="jakarta">Jakarta - Jl. Kopi Sejahtera No. 123</option>
+                                <option value="bandung">Bandung - Jl. Aroma Kopi No. 45</option>
+                            </select>
+                            
+                            <!-- Table Type Selection -->
+                            <div class="table-options">
+                                <label class="form-label">Tipe Meja <span style="color: #8B4513;">*</span></label>
+                                <div class="table-type">
+                                    <div class="table-btn" data-type="window">
+                                        <i class="fas fa-window-maximize"></i>
+                                        <div>Window</div>
+                                        <small>Pemandangan jalan</small>
+                                    </div>
+                                    <div class="table-btn" data-type="cozy">
+                                        <i class="fas fa-couch"></i>
+                                        <div>Cozy Corner</div>
+                                        <small>Nyaman & privat</small>
+                                    </div>
+                                    <div class="table-btn" data-type="outdoor">
+                                        <i class="fas fa-umbrella-beach"></i>
+                                        <div>Outdoor</div>
+                                        <small>Teras terbuka</small>
+                                    </div>
+                                    <div class="table-btn" data-type="high">
+                                        <i class="fas fa-chair"></i>
+                                        <div>High Table</div>
+                                        <small>Bar & tinggi</small>
+                                    </div>
+                                    <div class="table-btn" data-type="family">
+                                        <i class="fas fa-users"></i>
+                                        <div>Family Table</div>
+                                        <small>Untuk grup besar</small>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="tableType" required>
+                            </div>
+                            
+                            <!-- Special Requests -->
+                            <div class="special-requests">
+                                <label class="form-label">Permintaan Khusus</label>
+                                <textarea class="form-control" placeholder="Contoh: Meja dekat stopkontak, area bebas asap, ulang tahun, dll." 
+                                id="specialRequests"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn-submit">
+                                <i class="fas fa-calendar-check me-2"></i>Konfirmasi Reservasi
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="container">
+            <h2 class="text-center mb-5" style="color: #3c2f2f;">Keuntungan Reservasi Online</h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h4>Hemat Waktu</h4>
+                    <p>Langsung dapat meja tanpa harus antri di lokasi. Datang sesuai waktu yang Anda pilih.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>Meja Pilihan</h4>
+                    <p>Pilih meja favorit Anda sesuai preferensi: window view, cozy corner, atau outdoor.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h4>Bonus Spesial</h4>
+                    <p>Dapatkan minuman gratis atau diskon khusus untuk reservasi online pertama Anda.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h4>Pengingat</h4>
+                    <p>Kami akan mengirimkan pengingat via WhatsApp dan email sehari sebelum reservasi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Policy -->
+    <section class="reservation-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="reservation-card">
+                        <h3 class="text-center mb-4" style="color: #3c2f2f;">Kebijakan Reservasi</h3>
+                        
+                        <div style="color: #666; line-height: 1.8;">
+                            <p><strong>1. Konfirmasi Reservasi:</strong></p>
+                            <ul style="padding-left: 20px; margin-bottom: 20px;">
+                                <li>Reservasi akan dikonfirmasi via email dan WhatsApp dalam waktu 1 jam</li>
+                                <li>Harap tunjukkan konfirmasi reservasi saat datang ke kafe</li>
+                            </ul>
+                            
+                            <p><strong>2. Waktu Kedatangan:</strong></p>
+                            <ul style="padding-left: 20px; margin-bottom: 20px;">
+                                <li>Meja akan ditahan maksimal 15 menit dari waktu reservasi</li>
+                                <li>Jika terlambat lebih dari 15 menit, reservasi akan dibatalkan</li>
+                            </ul>
+                            
+                            <p><strong>3. Pembatalan:</strong></p>
+                            <ul style="padding-left: 20px; margin-bottom: 20px;">
+                                <li>Pembatalan dapat dilakukan maksimal 2 jam sebelum waktu reservasi</li>
+                                <li>Untuk pembatalan mendadak, harap hubungi kami via telepon</li>
+                            </ul>
+                            
+                            <p><strong>4. Perubahan:</strong></p>
+                            <ul style="padding-left: 20px; margin-bottom: 20px;">
+                                <li>Perubahan waktu atau jumlah orang dapat dilakukan via WhatsApp</li>
+                                <li>Perubahan lokasi mungkin memerlukan pembatalan dan reservasi baru</li>
+                            </ul>
+                            
+                            <p style="color: #8B4513; font-weight: 600; margin-top: 20px;">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Untuk pertanyaan lebih lanjut, hubungi (021) 555-1234 atau WhatsApp 0812-3456-7890
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
+                    <h3 class="footer-logo"><i class="fas fa-coffee me-2"></i>LeeRiya <span>Coffee</span></h3>
+                    <p>Tempat di mana setiap cangkir kopi bercerita tentang passion dan dedikasi. Kami berkomitmen untuk memberikan pengalaman kopi terbaik untuk Anda.</p>
+                    <div class="social-icons mt-4">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">Tentang Kami</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="contact.html">Kontak</a></li>
+                        <li><a href="reservasi.html">Reservasi</a></li>
+                        <li><a href="login.html">Login</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <h4 class="footer-title">Jam Operasional</h4>
+                    <ul class="footer-links">
+                        <li><strong>Jl. A.Yani:</strong><br>Senin - Minggu: 07:00 - 22:00</li>
+                        <li><strong>Jl. Kurma :</strong><br>Senin - Jumat: 08:00 - 23:00<br>Sabtu - Minggu: 07:00 - 00:00</li>
+                        <li>Hari Libur: 09:00 - 21:00</li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <h4 class="footer-title">Kontak Kami</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt me-2"></i><strong>Sumenep:</strong> Jl. A.Yani No. 269</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i><strong>Sumenep:</strong> Jl. Kurma II No. 469a</li>
+                        <li><i class="fas fa-phone me-2"></i>0857-3515-3101</li>
+                        <li><i class="fas fa-envelope me-2"></i>leeriyacoffee@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2024 Leeriya Coffee. All rights reserved. | Created by <a href="#" style="color: #D4A574;">Isnain Permana Imananda</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div class="reservation-modal" id="successModal">
+        <div class="modal-content">
+            <div style="font-size: 4rem; color: #28a745; margin-bottom: 20px;">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Reservasi Berhasil!</h3>
+            <p id="modalMessage">Reservasi Anda telah berhasil dibuat. Kami telah mengirimkan konfirmasi ke email dan WhatsApp Anda. Harap datang tepat waktu dan tunjukkan konfirmasi ini kepada staf kami.</p>
+            <button class="btn-modal" id="closeModal">Tutup</button>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    
+    <script>
+        // Set minimum date to today
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set min date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('reservationDate').min = today;
+            
+            // Set default time to next hour
+            const now = new Date();
+            const nextHour = new Date(now.getTime() + 60 * 60 * 1000);
+            const hours = nextHour.getHours().toString().padStart(2, '0');
+            const minutes = nextHour.getMinutes().toString().padStart(2, '0');
+            document.getElementById('reservationTime').value = `${hours}:${minutes}`;
+            
+            // Active nav link
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = document.querySelectorAll('.nav-link-custom');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Table Selection
+        document.querySelectorAll('.table-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove selected class from all buttons
+                document.querySelectorAll('.table-btn').forEach(b => {
+                    b.classList.remove('selected');
+                });
+                
+                // Add selected class to clicked button
+                this.classList.add('selected');
+                
+                // Set hidden input value
+                document.getElementById('tableType').value = this.dataset.type;
+            });
+        });
+        
+        // Form Validation and Submission
+        document.getElementById('reservationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('fullName').value;
+            const phone = document.getElementById('phoneNumber').value;
+            const email = document.getElementById('email').value;
+            const people = document.getElementById('peopleCount').value;
+            const date = document.getElementById('reservationDate').value;
+            const time = document.getElementById('reservationTime').value;
+            const location = document.getElementById('location').value;
+            const tableType = document.getElementById('tableType').value;
+            const requests = document.getElementById('specialRequests').value;
+            
+            // Validation
+            if (!name || !phone || !email || !people || !date || !time || !location || !tableType) {
+                alert('Mohon lengkapi semua field yang wajib diisi!');
+                return;
+            }
+            
+            // Phone validation
+            const phoneRegex = /^[0-9]{10,13}$/;
+            if (!phoneRegex.test(phone.replace(/\D/g, ''))) {
+                alert('Nomor telepon tidak valid. Harap masukkan 10-13 digit angka.');
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Email tidak valid. Harap masukkan email yang benar.');
+                return;
+            }
+            
+            // Date validation - cannot be in the past
+            const selectedDate = new Date(date);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            if (selectedDate < today) {
+                alert('Tidak dapat memilih tanggal yang sudah lewat!');
+                return;
+            }
+            
+            // Format date for display
+            const formattedDate = new Date(date).toLocaleDateString('id-ID', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            // Get location name
+            const locationName = location === 'jakarta' ? 
+                'Jakarta - Jl. Kopi Sejahtera No. 123' : 
+                'Bandung - Jl. Aroma Kopi No. 45';
+            
+            // Get table type name
+            const tableTypes = {
+                'window': 'Window Table (Pemandangan jalan)',
+                'cozy': 'Cozy Corner (Nyaman & privat)',
+                'outdoor': 'Outdoor Table (Teras terbuka)',
+                'high': 'High Table (Bar & tinggi)',
+                'family': 'Family Table (Untuk grup besar)'
+            };
+            
+            // Create success message
+            const message = `
+                Reservasi atas nama <strong>${name}</strong> berhasil dibuat!<br><br>
+                <strong>Detail Reservasi:</strong><br>
+                📞 Telepon: ${phone}<br>
+                📧 Email: ${email}<br>
+                👥 Jumlah Orang: ${people} orang<br>
+                📅 Tanggal: ${formattedDate}<br>
+                ⏰ Waktu: ${time}<br>
+                📍 Lokasi: ${locationName}<br>
+                🪑 Tipe Meja: ${tableTypes[tableType]}<br>
+                ${requests ? `📝 Permintaan: ${requests}<br>` : ''}
+                <br>
+                Konfirmasi telah dikirim ke email dan WhatsApp Anda.
+            `;
+            
+            // Show success modal
+            document.getElementById('modalMessage').innerHTML = message;
+            document.getElementById('successModal').style.display = 'flex';
+            
+            // In a real application, you would send this data to a server
+            // For demo purposes, we'll just store in localStorage
+            const reservationData = {
+                name,
+                phone,
+                email,
+                people,
+                date,
+                time,
+                location,
+                tableType,
+                requests,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Save to localStorage
+            const reservations = JSON.parse(localStorage.getItem('leeriyaReservations')) || [];
+            reservations.push(reservationData);
+            localStorage.setItem('leeriyaReservations', JSON.stringify(reservations));
+            
+            // Reset form (optional)
+            // this.reset();
+            // document.querySelectorAll('.table-btn').forEach(b => b.classList.remove('selected'));
+            // document.getElementById('tableType').value = '';
+        });
+        
+        // Close modal
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('successModal').style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        document.getElementById('successModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+            }
+        });
+        
+        // Auto-format phone number
+        document.getElementById('phoneNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 13) {
+                value = value.substring(0, 13);
+            }
+            
+            // Format: 0812 3456 7890
+            if (value.length > 4) {
+                value = value.replace(/(\d{4})(\d{0,4})(\d{0,4})/, '$1 $2 $3').trim();
+            }
+            
+            e.target.value = value;
+        });
+    </script>
+</body>
+</html>
